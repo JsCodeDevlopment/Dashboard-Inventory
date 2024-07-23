@@ -1,28 +1,21 @@
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  ArrowDown,
-  ArrowUp,
-  CarFront,
-  OctagonAlert,
-  Siren,
-  FileWarning,
-} from "lucide-react";
+import { ArrowDown, ArrowUp, FileBadge, GraduationCap } from "lucide-react";
 
 const stats = [
   {
     id: 1,
-    name: "Veículos",
+    name: "Cursos",
     stat: "17",
-    icon: CarFront,
+    icon: FileBadge,
     change: "",
     changeType: "",
   },
   {
     id: 2,
-    name: "Infrações",
-    stat: "9",
-    icon: OctagonAlert,
+    name: "Novos Alunos",
+    stat: "+150k",
+    icon: GraduationCap,
     change: "5.4%",
     changeType: "increase",
   },

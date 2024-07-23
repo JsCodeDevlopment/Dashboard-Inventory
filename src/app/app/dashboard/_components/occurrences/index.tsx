@@ -13,7 +13,7 @@ export const Occurrences: React.FC = () => {
     <>
       <Card className="col-span-full">
         <CardHeader>
-          <CardTitle className="text-base">Alertas e Eventos</CardTitle>
+          <CardTitle className="text-base">Média de Uso Semanal</CardTitle>
           <CardDescription>Última semana</CardDescription>
         </CardHeader>
         <CardContent className="h-80 flex">
