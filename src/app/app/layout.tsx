@@ -1,3 +1,4 @@
+import { Footer } from "@/components/footer";
 import {
   DashboardBodyWrapper,
   DashboardRootLayout,
@@ -18,6 +19,7 @@ const AppLayout = ({ children }: { children: React.ReactNode }) => {
           <DashboardBodyWrapper>
             <Header />
             {children}
+            <Footer />
           </DashboardBodyWrapper>
         </DashboardRootLayout>
       </div>

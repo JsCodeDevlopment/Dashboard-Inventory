@@ -6,8 +6,8 @@ export const VehicleStatus = () => {
   return (
     <Card className="flex h-full flex-col justify-between">
       <CardHeader>
-        <CardTitle className="text-base">Status dos veiculos</CardTitle>
-        <CardDescription>Hoje</CardDescription>
+        <CardTitle className="text-base">Status dos alunos</CardTitle>
+        <CardDescription>Últimos 7 dias</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1">
         <PieChartVehicleStatus />

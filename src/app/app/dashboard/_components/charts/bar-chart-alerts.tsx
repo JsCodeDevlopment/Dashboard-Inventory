@@ -30,11 +30,11 @@ export interface BarChart {
 }
 
 const dataChart = {
-  overspeed: [10, 20, 30, 40, 50, 60, 5],
+  overspeed: [5, 20, 30, 40, 50, 60, 5],
   longStop: [15, 25, 35, 45, 55, 65, 12],
-  routeDeviation: [20, 30, 40, 50, 60, 70, 34],
+  routeDeviation: [20, 30, 40, 50, 85, 70, 34],
   quickAccelerations: [25, 35, 45, 55, 65, 75, 35],
-  hardBrakings: [30, 40, 50, 60, 70, 80, 17],
+  hardBrakings: [30, 40, 50, 6, 70, 80, 17],
 } as BarChart;
 
 export const BarChartAlerts: React.FC = () => {
@@ -42,27 +42,27 @@ export const BarChartAlerts: React.FC = () => {
     labels: ["Seg", "Ter", "Qua", "Qui", "Sex", "Sab", "Dom"],
     datasets: [
       {
-        label: "Excesso de Velocidade",
+        label: " 0-30min",
         data: dataChart.overspeed,
         backgroundColor: "rgba(248, 40, 90, 0.8)",
       },
       {
-        label: "Frenagens Bruscas",
+        label: " 30-60min",
         data: dataChart.hardBrakings,
         backgroundColor: "rgba(27, 132, 255,  0.8)",
       },
       {
-        label: "Acelerações Bruscas",
+        label: " 60-90min",
         data: dataChart.quickAccelerations,
         backgroundColor: "rgba(255, 193, 7, 0.8)",
       },
       {
-        label: "Desvios de Rota",
+        label: " 90-120min",
         data: dataChart.routeDeviation,
         backgroundColor: "rgba(183, 0, 255, 0.8)",
       },
       {
-        label: "Paradas Longas",
+        label: " 120min+",
         data: dataChart.longStop,
         backgroundColor: "rgba(0, 204, 153, 0.8)",
       },
@@ -74,7 +74,7 @@ export const BarChartAlerts: React.FC = () => {
       y: {
         title: {
           display: true,
-          text: "Ocorrências",
+          text: "Qauantidade de Alunos",
         },
         beginAtZero: true,
         max: 100,

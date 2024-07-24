@@ -8,8 +8,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AppTrack",
-  description: "Gerencie e acompanhe localizações de veículos em tempo real.",
+  title: "DEVLEARNING",
+  description: "Aprenda a programar de forma prática e divertida.",
 };
 export default function RootLayout({
   children,

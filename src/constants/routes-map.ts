@@ -4,7 +4,7 @@ export const routesMap = {
   login: "/login",
   register: "/register",
   forgotPassword: "/forgot-password",
-  settings: "/app/settings",
+  settings: "/app/settings/appearence",
   dashboard: "/app/dashboard",
-  vehicles: "/app/vehicles",
+  courses: "/app/courses",
 } as const;
