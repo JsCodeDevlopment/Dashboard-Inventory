@@ -3,7 +3,7 @@
 import Link from "next/link";
 import React from "react";
 
-import { MinimalLogo } from "@/components/logo";
+import { Rocket } from "lucide-react";
 import { ToggleNotification } from "@/components/toggle-notification";
 import { navLinks } from "@/constants/nav-links";
 import { useActivePath } from "@/hooks/use-active-path";
@@ -15,9 +15,11 @@ export const Sidebar: React.FC = () => {
     <div className="flex h-full max-h-screen flex-col gap-2">
       <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
         <span className="flex items-center gap-2 font-semibold">
-          <MinimalLogo className="size-8 rounded-md" />
+          <div className="flex size-10 items-center justify-center rounded-lg bg-primary">
+            <Rocket className="size-7 text-primary-foreground" />
+          </div>
           <span className="text-lg font-bold">
-            App<span className="text-primary">Track</span>
+            DEV<span className="text-primary">LEARNING</span>
           </span>
         </span>
         <ToggleNotification />

@@ -5,14 +5,14 @@ import {
   MainContentWrapper,
 } from "@/components/layout/dashboard/main";
 
-const VehiclesLayout = ({ children }: { children: React.ReactNode }) => {
+const CoursesLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <MainWrapper>
       <MainContentHeader>
-        <MainContentTitle>Veículos</MainContentTitle>
+        <MainContentTitle>Cursos</MainContentTitle>
       </MainContentHeader>
       <MainContentWrapper>{children}</MainContentWrapper>
     </MainWrapper>
   );
 };
-export default VehiclesLayout;
+export default CoursesLayout;

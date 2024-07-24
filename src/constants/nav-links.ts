@@ -1,4 +1,4 @@
-import { CarFront, LayoutDashboard, Settings } from "lucide-react";
+import { GraduationCap, LayoutDashboard, Settings } from "lucide-react";
 import { routesMap } from "@/constants/routes-map";
 
 export const navLinks = [
@@ -8,9 +8,9 @@ export const navLinks = [
     href: routesMap.dashboard,
   },
   {
-    icon: CarFront,
-    title: "Veículos",
-    href: routesMap.vehicles,
+    icon: GraduationCap,
+    title: "Courses",
+    href: routesMap.courses,
   },
   {
     icon: Settings,

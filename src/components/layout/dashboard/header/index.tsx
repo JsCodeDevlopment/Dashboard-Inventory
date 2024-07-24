@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
             <nav className="grid gap-2 text-lg font-medium space-y-4">
               <span className="flex items-center gap-2 text-lg font-semibold">
                 <FullLogo />
-                <span className="sr-only">AppTrack</span>
+                <span className="sr-only">Devlearning</span>
               </span>
               <div className="flex flex-col gap-2">
                 {navLinks.map((item) => (

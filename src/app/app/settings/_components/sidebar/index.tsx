@@ -7,16 +7,16 @@ import { Card } from "@/components/ui/card";
 import { useActivePath } from "@/hooks/use-active-path";
 
 const navigation = [
-  {
-    name: "Minha conta",
-    href: "/app/settings",
-    icon: UserCircleIcon,
-  },
-  {
-    name: "Segurança",
-    href: "/app/settings/security",
-    icon: LockKeyhole,
-  },
+  // {
+  //   name: "Minha conta",
+  //   href: "/app/settings",
+  //   icon: UserCircleIcon,
+  // },
+  // {
+  //   name: "Segurança",
+  //   href: "/app/settings/security",
+  //   icon: LockKeyhole,
+  // },
   {
     name: "Aparência",
     href: "/app/settings/appearence",

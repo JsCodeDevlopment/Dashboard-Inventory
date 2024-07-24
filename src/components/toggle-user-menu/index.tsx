@@ -26,10 +26,10 @@ export const ToggleUserMenu: React.FC = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem asChild className="cursor-pointer">
+        {/* <DropdownMenuItem asChild className="cursor-pointer">
           <Link href={routesMap.settings}>Minha Conta</Link>
         </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        <DropdownMenuSeparator /> */}
         <DropdownMenuItem className="cursor-pointer" onClick={() => logout()}>
           Sair
         </DropdownMenuItem>
