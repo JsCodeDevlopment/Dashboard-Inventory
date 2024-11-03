@@ -1,15 +1,15 @@
+import { Toaster } from "@/components/ui/sonner";
+import { Providers } from "@/contexts/providers";
+import { ThemeProvider } from "@/contexts/theme-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Providers } from "@/contexts/providers";
-import { Toaster } from "@/components/ui/sonner";
-import { ThemeProvider } from "@/contexts/theme-provider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "DEVLEARNING",
-  description: "Aprenda a programar de forma prática e divertida.",
+  title: "JSystems - Gestor de estoques",
+  description: "Gestor de estoques",
 };
 export default function RootLayout({
   children,

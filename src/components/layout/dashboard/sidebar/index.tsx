@@ -3,26 +3,24 @@
 import Link from "next/link";
 import React from "react";
 
-import { Rocket } from "lucide-react";
-import { ToggleNotification } from "@/components/toggle-notification";
 import { navLinks } from "@/constants/nav-links";
 import { useActivePath } from "@/hooks/use-active-path";
+import { Rocket } from "lucide-react";
 
 export const Sidebar: React.FC = () => {
   const { isActive } = useActivePath();
 
   return (
     <div className="flex h-full max-h-screen flex-col gap-2">
-      <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
+      <div className="flex h-14 items-center justify-center border-b px-4 lg:h-[60px] lg:px-6">
         <span className="flex items-center gap-2 font-semibold">
           <div className="flex size-10 items-center justify-center rounded-lg bg-primary">
             <Rocket className="size-7 text-primary-foreground" />
           </div>
           <span className="text-lg font-bold">
-            DEV<span className="text-primary">LEARNING</span>
+            JS<span className="text-primary">ystems</span>
           </span>
         </span>
-        <ToggleNotification />
       </div>
       <div className="flex-1">
         <nav className="grid items-start pt-4 lg:pt-6 px-2 text-sm font-medium lg:px-4 gap-2">

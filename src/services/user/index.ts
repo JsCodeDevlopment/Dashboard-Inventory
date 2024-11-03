@@ -1,17 +1,31 @@
 import { api } from "@/lib/axios/api";
-import type {
-  RegisterInput,
-  RegisterOutput,
-  UpdateUserInput,
-  UpdateUserOutput,
-  UserWithoutPassword,
+import {
+  Role,
+  type RegisterInput,
+  type RegisterOutput,
+  type UpdateUserInput,
+  type UpdateUserOutput,
+  type UserWithoutPassword,
 } from "@/services/user/types/";
+import { LoginOutput } from "../auth/types";
+
+const fakeUser: LoginOutput = {
+  access_token: "asdasd-asd-as-dasdadad-ad",
+  user: {
+    email: "tester@mail.com",
+    id: "1",
+    name: "Cabra da Peste",
+    role: Role.ADMIN,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+};
 
 export const user = {
   me: async () => {
     try {
-      const response = await api.get<UserWithoutPassword>("/user/me");
-      return response.data;
+      // const response = await api.get<UserWithoutPassword>("/user/me");
+      return fakeUser;
     } catch (error) {
       return null;
     }

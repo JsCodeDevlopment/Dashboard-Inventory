@@ -1,7 +1,7 @@
-import { NextPage } from "next";
 import { DataTableCategories } from "@/components/tables/categories";
+import { NextPage } from "next";
 
-const CoursesPage: NextPage = () => {
+const ProductsPage: NextPage = () => {
   return (
     <div>
       <DataTableCategories />
@@ -9,4 +9,4 @@ const CoursesPage: NextPage = () => {
   );
 };
 
-export default CoursesPage;
+export default ProductsPage;

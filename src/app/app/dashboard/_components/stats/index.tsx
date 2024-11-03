@@ -1,22 +1,22 @@
-import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowDown, ArrowUp, FileBadge, GraduationCap } from "lucide-react";
+import { ArrowDown, ArrowUp, Package, ShoppingBasket } from "lucide-react";
+import React from "react";
 
 const stats = [
   {
     id: 1,
-    name: "Cursos",
+    name: "Produtos",
     stat: "17",
-    icon: FileBadge,
+    icon: ShoppingBasket,
     change: "",
     changeType: "",
   },
   {
     id: 2,
-    name: "Novos Alunos",
-    stat: "+150k",
-    icon: GraduationCap,
-    change: "5.4%",
+    name: "Novos Produtos",
+    stat: "+12",
+    icon: Package,
+    change: "1.4%",
     changeType: "increase",
   },
 ];

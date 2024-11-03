@@ -1,5 +1,5 @@
-import { GraduationCap, LayoutDashboard, Settings } from "lucide-react";
 import { routesMap } from "@/constants/routes-map";
+import { BriefcaseBusiness, LayoutDashboard, Package, Settings } from "lucide-react";
 
 export const navLinks = [
   {
@@ -8,9 +8,14 @@ export const navLinks = [
     href: routesMap.dashboard,
   },
   {
-    icon: GraduationCap,
-    title: "Courses",
-    href: routesMap.courses,
+    icon: Package,
+    title: "Produtos",
+    href: routesMap.products,
+  },
+  {
+    icon: BriefcaseBusiness,
+    title: "Serviços",
+    href: routesMap.services,
   },
   {
     icon: Settings,
