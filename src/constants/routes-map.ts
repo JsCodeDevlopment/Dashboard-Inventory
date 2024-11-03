@@ -8,4 +8,5 @@ export const routesMap = {
   dashboard: "/app/dashboard",
   products: "/app/products",
   services: "/app/services",
+  customers: "/app/customers",
 } as const;

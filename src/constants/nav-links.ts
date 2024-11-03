@@ -1,5 +1,5 @@
 import { routesMap } from "@/constants/routes-map";
-import { BriefcaseBusiness, LayoutDashboard, Package, Settings } from "lucide-react";
+import { BriefcaseBusiness, LayoutDashboard, Package, User, Settings } from "lucide-react";
 
 export const navLinks = [
   {
@@ -16,6 +16,11 @@ export const navLinks = [
     icon: BriefcaseBusiness,
     title: "Serviços",
     href: routesMap.services,
+  },
+  {
+    icon: User,
+    title: "Clientes",
+    href: routesMap.customers,
   },
   {
     icon: Settings,

@@ -4,14 +4,14 @@ import {
   MainContentWrapper,
   MainWrapper,
 } from "@/components/layout/dashboard/main";
-import { BriefcaseBusiness, Package } from "lucide-react";
+import { BriefcaseBusiness, Package, User } from "lucide-react";
 
 const CoursesLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <MainWrapper>
       <MainContentHeader>
         <MainContentTitle className="flex gap-3 items-center">
-          <BriefcaseBusiness className="text-primary" /> Serviços
+          <User className="text-primary" /> Clientes
         </MainContentTitle>
       </MainContentHeader>
       <MainContentWrapper>{children}</MainContentWrapper>

@@ -1,10 +1,10 @@
-import { DataTableCategories } from "@/components/tables/categories";
+import { DataTableProducts } from "@/components/tables/products";
 import { NextPage } from "next";
 
 const ProductsPage: NextPage = () => {
   return (
     <div>
-      <DataTableCategories />
+      <DataTableProducts />
     </div>
   );
 };
