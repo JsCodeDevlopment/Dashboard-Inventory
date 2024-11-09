@@ -1,21 +1,17 @@
 "use client";
 
-import { SaveProductForm } from "@/components/tables/products/form";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/DataTable";
 import { Dialog } from "@/components/ui/Dialog";
 import { Input } from "@/components/ui/input";
-import { FormatHelper } from "@/services/common/format.helper";
-import { DateFormatter } from "@/services/common/formatDate";
 import {
   ColumnDef,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { Pencil, Search, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React from "react";
-import { SaveServiceForm } from "./form";
 
 interface Services {
   id: string;
@@ -115,6 +111,7 @@ const customers: Customer[] = [
 export function DataTableCustomers() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [data, setData] = React.useState<Customer[]>(customers);
+  const router = useRouter();
 
   const columns: ColumnDef<Customer>[] = React.useMemo(
     () => [
@@ -136,17 +133,19 @@ export function DataTableCustomers() {
       {
         accessorKey: "id",
         header: () => (
-          <span className="w-fit text-center">
-            Detalhes do Cliente
-          </span>
+          <span className="w-fit text-center">Detalhes do Cliente</span>
         ),
-        cell: ({ row }) => <Button>Mais Detalhes</Button>,
+        cell: ({ row }) => (
+          <Button
+            onClick={() => router.push(`/app/customer/${row.original.id}`)}
+          >
+            Mais Detalhes
+          </Button>
+        ),
       },
       {
         accessorKey: "id",
-        header: () => (
-          <span className="w-fit text-center">Editar</span>
-        ),
+        header: () => <span className="w-fit text-center">Editar</span>,
         cell: ({ row }) => (
           <Dialog
             title="Editar Cliente"
@@ -164,9 +163,7 @@ export function DataTableCustomers() {
       },
       {
         accessorKey: "id",
-        header: () => (
-          <span className="w-fit text-center">Excluir</span>
-        ),
+        header: () => <span className="w-fit text-center">Excluir</span>,
         cell: ({ row }) => (
           <Dialog
             title="Excluir Cliente"
@@ -185,7 +182,7 @@ export function DataTableCustomers() {
         ),
       },
     ],
-    []
+    [router]
   );
 
   const handleDeleteService = (serviceId: string) => {

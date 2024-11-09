@@ -1,6 +1,5 @@
 "use client";
 
-import { SaveProductForm } from "@/components/tables/products/form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/DataTable";
@@ -74,7 +73,13 @@ const customer: Customer = {
     },
   ],
 };
-export function DataTableCustomer() {
+
+interface DataTableCustomerProps {
+  customerId: string;
+}
+
+export function DataTableCustomer({ customerId }: DataTableCustomerProps) {
+  console.log("customerId", customerId);
   const [isLoading, setIsLoading] = React.useState(false);
   const [data, setData] = React.useState<Services[]>(
     [customer].map((c: Customer) => c.services).flat()
@@ -283,19 +288,21 @@ export function DataTableCustomer() {
             <p>
               <strong>Serviços finalizados:</strong>{" "}
               <span className="text-primary">
-          {
-            customer.services.filter((service) => service.status === "done")
-              .length
-          }
+                {
+                  customer.services.filter(
+                    (service) => service.status === "done"
+                  ).length
+                }
               </span>
             </p>
             <p>
               <strong>Serviços em andamento:</strong>{" "}
               <span className="text-primary">
-          {
-            customer.services.filter((service) => service.status !== "done")
-              .length
-          }
+                {
+                  customer.services.filter(
+                    (service) => service.status !== "done"
+                  ).length
+                }
               </span>
             </p>
           </div>

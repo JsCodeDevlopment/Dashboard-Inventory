@@ -1,6 +1,6 @@
+import { routesMap } from "@/constants/routes-map";
 import { user } from "@/services/user";
 import { NextRequest, NextResponse } from "next/server";
-import { routesMap } from "@/constants/routes-map";
 
 const redirectToLogin = (req: NextRequest) => {
   const response = NextResponse.redirect(new URL(routesMap.login, req.nextUrl));
