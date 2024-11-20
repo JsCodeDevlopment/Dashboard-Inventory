@@ -22,12 +22,12 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-type UnitEnum = keyof typeof UnitEnum;
-const UnitEnum = {
-  un: "un",
-  cx: "cx",
-  pct: "pct",
-  kg: "kg",
+export type UnitEnum = keyof typeof UnitEnum;
+export const UnitEnum = {
+  UN: "UN",
+  CX: "CX",
+  PCT: "PCT",
+  KG: "KG",
 } as const;
 
 const formSchema = z.object({

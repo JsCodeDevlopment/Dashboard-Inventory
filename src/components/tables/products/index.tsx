@@ -1,6 +1,7 @@
 "use client";
 
-import { SaveProductForm } from "@/components/tables/products/form";
+import AddMoreForm from "@/components/tables/products/add-more-form";
+import { SaveProductForm, UnitEnum } from "@/components/tables/products/form";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/DataTable";
 import { Dialog } from "@/components/ui/Dialog";
@@ -12,7 +13,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Pencil, Search, Trash } from "lucide-react";
+import { Pencil, Plus, Search, Trash } from "lucide-react";
 import React from "react";
 
 export type Category = {
@@ -27,7 +28,7 @@ interface Products {
   buy_price: number;
   quantity: number;
   details: string;
-  unit: "un" | "cx" | "pct" | "kg";
+  unit: UnitEnum;
 }
 const products: Products[] = [
   {
@@ -37,7 +38,7 @@ const products: Products[] = [
     buy_price: 20,
     quantity: 30,
     details: "Carregador de bateria 24v",
-    unit: "un",
+    unit: "UN",
   },
   {
     id: 2,
@@ -46,7 +47,7 @@ const products: Products[] = [
     buy_price: 12,
     quantity: 22,
     details: "Fone de ouvido estério com microfone",
-    unit: "un",
+    unit: "UN",
   },
   {
     id: 3,
@@ -55,7 +56,7 @@ const products: Products[] = [
     buy_price: 5,
     quantity: 100,
     details: "Cabo USB-C de 1m",
-    unit: "un",
+    unit: "UN",
   },
 ];
 
@@ -93,6 +94,24 @@ export function DataTableProducts() {
       {
         accessorKey: "details",
         header: () => <span className="w-fit text-center">Detalhes</span>,
+      },
+      {
+        accessorKey: "id",
+        header: () => <span className="w-fit text-center">Adicionar Mais</span>,
+        cell: ({ row }) => (
+          <Dialog
+            title="Adicionar Mais Produto"
+            description="Adicione mais produtos ao estoque"
+            className="w-[65rem]"
+            trigger={
+              <Button variant="outline" size="icon">
+                <Plus className="h-4 w-4" />
+              </Button>
+            }
+          >
+            <AddMoreForm />
+          </Dialog>
+        ),
       },
       {
         accessorKey: "id",
@@ -136,9 +155,7 @@ export function DataTableProducts() {
               </Button>
             }
           >
-            <Button
-              onClick={() => handleDeleteProduct(row.original.id)}
-            >
+            <Button onClick={() => handleDeleteProduct(row.original.id)}>
               Excluir
             </Button>
           </Dialog>
