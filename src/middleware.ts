@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const redirectToLogin = (req: NextRequest) => {
   const response = NextResponse.redirect(new URL(routesMap.login, req.nextUrl));
-  response.cookies.delete("app-track");
+  response.cookies.delete("SECRET_COOKIE");
   return response;
 };
 
@@ -14,7 +14,7 @@ const redirectToDashboard = (req: NextRequest) => {
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const token = req.cookies.get("app-track");
+  const token = req.cookies.get("SECRET_COOKIE");
   if (!token && path.startsWith(routesMap.app)) {
     return redirectToLogin(req);
   }

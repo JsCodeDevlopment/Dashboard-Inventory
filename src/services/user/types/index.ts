@@ -1,20 +1,13 @@
 import { AccountFormSchema } from "@/schemas/account-form";
 import { UserRegisterSchema } from "@/schemas/user-register";
 
-export enum Role {
-  ADMIN = "ADMIN",
-  USER = "USER",
-}
-
 export type UserWithoutPassword = Omit<User, "password">;
 
 export interface User {
   id: string;
-  name: string;
+  username: string;
   email: string;
-  phone?: string;
   password: string;
-  role: Role;
   createdAt: Date;
   updatedAt: Date;
 }

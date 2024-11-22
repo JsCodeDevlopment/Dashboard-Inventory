@@ -99,18 +99,20 @@ export function DataTableProducts() {
         accessorKey: "id",
         header: () => <span className="w-fit text-center">Adicionar Mais</span>,
         cell: ({ row }) => (
-          <Dialog
-            title="Adicionar Mais Produto"
-            description="Adicione mais produtos ao estoque"
-            className="w-[65rem]"
-            trigger={
-              <Button variant="outline" size="icon">
-                <Plus className="h-4 w-4" />
-              </Button>
-            }
-          >
-            <AddMoreForm />
-          </Dialog>
+          <div className="flex flex-1 justify-center">
+            <Dialog
+              title="Adicionar Mais Produto"
+              description="Adicione mais produtos ao estoque"
+              className="w-[65rem]"
+              trigger={
+                <Button variant="outline" size="icon">
+                  <Plus className="h-4 w-4" />
+                </Button>
+              }
+            >
+              <AddMoreForm />
+            </Dialog>
+          </div>
         ),
       },
       {

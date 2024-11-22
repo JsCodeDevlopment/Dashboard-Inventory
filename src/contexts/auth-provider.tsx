@@ -1,15 +1,15 @@
 "use client";
 
+import { routesMap } from "@/constants/routes-map";
+import { userKeys } from "@/factories/query-keys";
 import { CredentialsSchema } from "@/schemas/credentials";
 import { auth } from "@/services/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { deleteCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import React, { createContext } from "react";
 import { toast } from "sonner";
-import { userKeys } from "@/factories/query-keys";
-import { AxiosError } from "axios";
-import { routesMap } from "@/constants/routes-map";
 
 export interface AuthContextData {
   isPending: boolean;
@@ -27,8 +27,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const { isPending, mutate } = useMutation({
     mutationFn: auth.login,
-    onSuccess: ({ access_token }) => {
-      setCookie("app-track", access_token, {
+    onSuccess: ({ accessToken }) => {
+      setCookie("SECRET_COOKIE", accessToken, {
         maxAge: 60 * 60 * 24,
       });
       toast.success("Login feito com sucesso!");
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = () => {
     queryClient.clear();
-    deleteCookie("app-track");
+    deleteCookie("SECRET_COOKIE");
     router.replace(routesMap.login);
   };
 

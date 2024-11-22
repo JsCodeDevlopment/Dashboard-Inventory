@@ -1,10 +1,10 @@
+import { env } from "@/configs/env";
 import axios from "axios";
 import { getCookie } from "cookies-next";
-import { env } from "@/configs/env";
 
 const getServerSideToken = async () => {
   const headers = await import("next/headers");
-  return getCookie("app-track", { cookies: headers.cookies });
+  return getCookie("SECRET_COOKIE", { cookies: headers.cookies });
 };
 
 const api = axios.create({
@@ -20,7 +20,7 @@ api.interceptors.request.use(
     const token =
       typeof window === "undefined"
         ? await getServerSideToken()
-        : getCookie("app-track");
+        : getCookie("SECRET_COOKIE");
 
     if (token) config.headers.Authorization = `Bearer ${token}`;
 
@@ -32,3 +32,4 @@ api.interceptors.request.use(
 );
 
 export { api };
+
