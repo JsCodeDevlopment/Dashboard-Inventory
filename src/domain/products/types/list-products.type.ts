@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   price: number;
   quantity: number;
-  details: string;
+  details?: string;
   unit: ProductUnit;
   purchaseDate: Date;
   createdAt: Date;

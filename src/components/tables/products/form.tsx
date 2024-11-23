@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -17,9 +17,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useProducts } from "@/domain/products/hooks/products.hook";
 import { Product } from "@/domain/products/types/list-products.type";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DialogClose } from "@radix-ui/react-dialog";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -33,14 +33,10 @@ export const UnitEnum = {
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  value: z.string().transform((val) => +val),
-  date: z
-    .date()
-    .nullable()
-    .optional()
-    .transform((val) => (val ? val.toISOString() : undefined)),
+  value: z.coerce.number(),
+  date: z.string().optional(),
   unit: z.nativeEnum(UnitEnum),
-  quantity: z.string().transform((val) => +val),
+  quantity: z.coerce.number(),
   details: z.string().optional(),
 });
 
@@ -63,11 +59,21 @@ export function SaveProductForm({ data: Products }: SaveProductFormProps) {
     },
   });
 
-  const { watch, handleSubmit } = form;
-  const date = watch("date");
+  const {
+    CreateProductMutation: { mutate: CreateProduct, isPending: isCreating },
+  } = useProducts();
+
+  const { handleSubmit } = form;
 
   const onSubmit = (data: FormValues) => {
-    // handleSubmitForm(data);
+    CreateProduct({
+      name: data.name,
+      details: data.details,
+      price: data.value,
+      purchaseDate: data.date ? new Date(data.date) : new Date(),
+      quantity: data.quantity,
+      unit: data.unit,
+    });
   };
 
   return (
@@ -178,9 +184,9 @@ export function SaveProductForm({ data: Products }: SaveProductFormProps) {
         />
 
         <div className="flex justify-end space-x-2">
-          <DialogClose className={buttonVariants()} type="submit">
+          <Button type="submit" disabled={isCreating}>
             {Products ? "Atualizar produto" : "Adicionar produto"}
-          </DialogClose>
+          </Button>
         </div>
       </form>
     </Form>

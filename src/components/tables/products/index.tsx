@@ -1,6 +1,7 @@
 "use client";
 
 import { useDebounce } from "@/components/common/Debounce";
+import RefetchButton from "@/components/common/RefetchButton";
 import AddMoreForm from "@/components/tables/products/add-more-form";
 import { SaveProductForm } from "@/components/tables/products/form";
 import { Button } from "@/components/ui/button";
@@ -137,14 +138,17 @@ export function DataTableProducts() {
             />
             <Search className="absolute top-2 right-2 h-5 w-5 text-gray-400" />
           </div>
-          <Dialog
-            title="Adicionar Produto"
-            description="Adicione um novo produto ao estoque"
-            className="w-[65rem]"
-            trigger={<Button>Adicionar Produto</Button>}
-          >
-            <SaveProductForm />
-          </Dialog>
+          <div className="flex gap-2">
+            <Dialog
+              title="Adicionar Produto"
+              description="Adicione um novo produto ao estoque"
+              className="w-[65rem]"
+              trigger={<Button>Adicionar Produto</Button>}
+            >
+              <SaveProductForm />
+            </Dialog>
+            <RefetchButton refetch={refetch} isPending={isLoading} />
+          </div>
         </div>
         <DataTable columns={columns} table={table} isLoading={isLoading} />
       </div>
