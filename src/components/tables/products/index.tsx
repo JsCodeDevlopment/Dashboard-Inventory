@@ -25,6 +25,7 @@ export function DataTableProducts() {
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
   const {
     ListProductsQuery: { data: Products, isLoading, refetch },
+    DeleteProductMutation: { mutate: DeleteProduct, isPending: isDeleting },
   } = useProducts({
     name: debouncedSearchTerm,
   });
@@ -111,12 +112,21 @@ export function DataTableProducts() {
               </Button>
             }
           >
-            <Button onClick={() => {}}>Excluir</Button>
+            <Button
+              disabled={isDeleting}
+              onClick={() =>
+                DeleteProduct({
+                  productId: row.original.id,
+                })
+              }
+            >
+              Excluir
+            </Button>
           </Dialog>
         ),
       },
     ],
-    []
+    [DeleteProduct, isDeleting]
   );
 
   const table = useReactTable({

@@ -1,6 +1,8 @@
 import { createProduct } from "@/domain/products/actions/create-products.action";
+import { deleteProduct } from "@/domain/products/actions/delete-products.action";
 import { getProducts } from "@/domain/products/actions/list-products.action";
 import { CreateProductProps } from "@/domain/products/types/create-products.type";
+import { DeleteProductProps } from "@/domain/products/types/delete-products.type";
 import { ListProductProps } from "@/domain/products/types/list-products.type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -41,5 +43,20 @@ export function useProducts({ name }: ListProductProps = {}) {
     },
   });
 
-  return { ListProductsQuery, CreateProductMutation };
+  const DeleteProductMutation = useMutation({
+    mutationFn: async ({ productId }: DeleteProductProps) =>
+      await deleteProduct({
+        productId,
+      }),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/products"] });
+      toast.success("Produto deletado com sucesso");
+    },
+    onError: () => {
+      toast.error("Erro ao deletar produto");
+    },
+  });
+
+  return { ListProductsQuery, CreateProductMutation, DeleteProductMutation };
 }
