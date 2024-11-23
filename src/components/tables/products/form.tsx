@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Product } from "@/domain/products/types/list-products.type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { useForm } from "react-hook-form";
@@ -46,15 +47,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 interface SaveProductFormProps {
-  data?: {
-    id: string;
-    name: string;
-    value: number;
-    date: string;
-    unit: UnitEnum;
-    quantity: number;
-    details?: string;
-  };
+  data?: Product;
 }
 
 export function SaveProductForm({ data: Products }: SaveProductFormProps) {
@@ -62,8 +55,8 @@ export function SaveProductForm({ data: Products }: SaveProductFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: Products?.name,
-      value: Products?.value,
-      date: Products?.date,
+      value: Products?.price,
+      date: Products?.purchaseDate.toISOString(),
       unit: Products?.unit,
       quantity: Products?.quantity,
       details: Products?.details,

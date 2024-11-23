@@ -1,11 +1,14 @@
 "use client";
 
+import { useDebounce } from "@/components/common/Debounce";
 import AddMoreForm from "@/components/tables/products/add-more-form";
-import { SaveProductForm, UnitEnum } from "@/components/tables/products/form";
+import { SaveProductForm } from "@/components/tables/products/form";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/DataTable";
 import { Dialog } from "@/components/ui/Dialog";
 import { Input } from "@/components/ui/input";
+import { useListProducts } from "@/domain/products/hooks/list-products.hook";
+import { Product } from "@/domain/products/types/list-products.type";
 import { FormatHelper } from "@/services/common/format.helper";
 import { DateFormatter } from "@/services/common/formatDate";
 import {
@@ -16,72 +19,30 @@ import {
 import { Pencil, Plus, Search, Trash } from "lucide-react";
 import React from "react";
 
-export type Category = {
-  id: string;
-  name: string;
-};
-
-interface Products {
-  id: number;
-  name: string;
-  date: string;
-  buy_price: number;
-  quantity: number;
-  details: string;
-  unit: UnitEnum;
-}
-const products: Products[] = [
-  {
-    id: 1,
-    name: "Carregador 24v",
-    date: "2024-11-02T14:48:00.000Z",
-    buy_price: 20,
-    quantity: 30,
-    details: "Carregador de bateria 24v",
-    unit: "UN",
-  },
-  {
-    id: 2,
-    name: "Fone de ouvido estério",
-    date: new Date("2024-10-15T14:48:00.000Z").toISOString(),
-    buy_price: 12,
-    quantity: 22,
-    details: "Fone de ouvido estério com microfone",
-    unit: "UN",
-  },
-  {
-    id: 3,
-    name: "Cabo USB-C",
-    date: new Date("2023-12-05T14:48:00.000Z").toISOString(),
-    buy_price: 5,
-    quantity: 100,
-    details: "Cabo USB-C de 1m",
-    unit: "UN",
-  },
-];
-
 export function DataTableProducts() {
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [data, setData] = React.useState<Products[]>(products);
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 1000);
+  const { Products, isLoading, refetch } = useListProducts({
+    name: debouncedSearchTerm,
+  });
 
-  const columns: ColumnDef<Products>[] = React.useMemo(
+  const columns: ColumnDef<Product>[] = React.useMemo(
     () => [
       {
         accessorKey: "name",
         header: () => <span className="w-fit text-center">Produto</span>,
       },
       {
-        accessorKey: "buy_price",
+        accessorKey: "price",
         header: () => (
           <span className="w-fit text-center">Valor da compra</span>
         ),
-        cell: ({ row }) =>
-          FormatHelper.toMoney(row.original.buy_price).conversion,
+        cell: ({ row }) => FormatHelper.toMoney(row.original.price).conversion,
       },
       {
         accessorKey: "date",
         header: () => <span className="w-fit text-center">Data da compra</span>,
-        cell: ({ row }) => DateFormatter.formatDate(row.original.date),
+        cell: ({ row }) => DateFormatter.formatDate(row.original.purchaseDate),
       },
       {
         accessorKey: "unit",
@@ -129,17 +90,7 @@ export function DataTableProducts() {
               </Button>
             }
           >
-            <SaveProductForm
-              data={{
-                id: "1",
-                name: row.original.name,
-                date: row.original.date,
-                value: row.original.buy_price,
-                quantity: row.original.quantity,
-                details: row.original.details,
-                unit: row.original.unit,
-              }}
-            />
+            <SaveProductForm data={row.original} />
           </Dialog>
         ),
       },
@@ -157,9 +108,7 @@ export function DataTableProducts() {
               </Button>
             }
           >
-            <Button onClick={() => handleDeleteProduct(row.original.id)}>
-              Excluir
-            </Button>
+            <Button onClick={() => {}}>Excluir</Button>
           </Dialog>
         ),
       },
@@ -167,34 +116,9 @@ export function DataTableProducts() {
     []
   );
 
-  const handleAddProduct = (newProduct: Products) => {
-    setData((prevData) => [...prevData, newProduct]);
-  };
-
-  const handleDeleteProduct = (productId: number) => {
-    setData((prevData) =>
-      prevData.filter((product) => product.id !== productId)
-    );
-  };
-
-  const handleUpdateProduct = (updatedProduct: Products) => {
-    setData((prevData) =>
-      prevData.map((product) =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
-    );
-  };
-
-  React.useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000 * 2);
-  }, []);
-
   const table = useReactTable({
     columns,
-    data: data,
+    data: Products ?? [],
     getCoreRowModel: getCoreRowModel(),
   });
   return (
@@ -206,17 +130,8 @@ export function DataTableProducts() {
               type="text"
               placeholder="Buscar produto..."
               className="border p-2 rounded w-96"
-              onChange={(e) => {
-                setTimeout(() => {
-                  const searchTerm = e.target.value.toLowerCase();
-
-                  setData(
-                    products.filter((product) =>
-                      product.name.toLowerCase().includes(searchTerm)
-                    )
-                  );
-                }, 1000);
-              }}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Search className="absolute top-2 right-2 h-5 w-5 text-gray-400" />
           </div>
