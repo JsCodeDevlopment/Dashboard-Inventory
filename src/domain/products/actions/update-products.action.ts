@@ -19,6 +19,5 @@ export async function updateProduct({
     quantity,
     unit,
   });
-  console.log("response", response);
   return response.data;
 }
