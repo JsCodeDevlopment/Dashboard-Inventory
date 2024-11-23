@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/DataTable";
 import { Dialog } from "@/components/ui/Dialog";
 import { Input } from "@/components/ui/input";
-import { useListProducts } from "@/domain/products/hooks/list-products.hook";
+import { useProducts } from "@/domain/products/hooks/products.hook";
 import { Product } from "@/domain/products/types/list-products.type";
 import { FormatHelper } from "@/services/common/format.helper";
 import { DateFormatter } from "@/services/common/formatDate";
@@ -22,7 +22,9 @@ import React from "react";
 export function DataTableProducts() {
   const [searchTerm, setSearchTerm] = React.useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, 1000);
-  const { Products, isLoading, refetch } = useListProducts({
+  const {
+    ListProductsQuery: { data: Products, isLoading, refetch },
+  } = useProducts({
     name: debouncedSearchTerm,
   });
 
