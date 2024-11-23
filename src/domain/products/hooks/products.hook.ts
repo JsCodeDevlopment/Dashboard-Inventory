@@ -1,7 +1,9 @@
+import { addProduct } from "@/domain/products/actions/add-products.action";
 import { createProduct } from "@/domain/products/actions/create-products.action";
 import { deleteProduct } from "@/domain/products/actions/delete-products.action";
 import { getProducts } from "@/domain/products/actions/list-products.action";
 import { updateProduct } from "@/domain/products/actions/update-products.action";
+import { AddProductProps } from "@/domain/products/types/add-products.type";
 import { CreateProductProps } from "@/domain/products/types/create-products.type";
 import { DeleteProductProps } from "@/domain/products/types/delete-products.type";
 import { ListProductProps } from "@/domain/products/types/list-products.type";
@@ -74,6 +76,29 @@ export function useProducts({ name }: ListProductProps = {}) {
     },
   });
 
+  const AddProductMutation = useMutation({
+    mutationFn: async ({
+      id,
+      price,
+      purchaseDate,
+      quantity,
+    }: AddProductProps) =>
+      await addProduct({
+        id,
+        price,
+        purchaseDate,
+        quantity,
+      }),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/products"] });
+      toast.success("Novos produtos adicionados com sucesso");
+    },
+    onError: () => {
+      toast.error("Erro ao adicionar mais produtos");
+    },
+  });
+
   const DeleteProductMutation = useMutation({
     mutationFn: async ({ productId }: DeleteProductProps) =>
       await deleteProduct({
@@ -94,5 +119,6 @@ export function useProducts({ name }: ListProductProps = {}) {
     CreateProductMutation,
     DeleteProductMutation,
     UpdateProductMutation,
+    AddProductMutation,
   };
 }

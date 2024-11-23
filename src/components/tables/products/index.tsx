@@ -75,7 +75,7 @@ export function DataTableProducts() {
                 </Button>
               }
             >
-              <AddMoreForm />
+              <AddMoreForm productId={row.original.id} />
             </Dialog>
           </div>
         ),

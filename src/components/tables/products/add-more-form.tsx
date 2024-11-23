@@ -1,6 +1,5 @@
 "use client";
 
-import { UnitEnum } from "@/components/tables/products/form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,32 +8,40 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import CurrencyInput from "@/components/ui/input-mask";
 import { RangeNumberInput } from "@/components/ui/range-number-input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { useProducts } from "@/domain/products/hooks/products.hook";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 const formSchema = z.object({
-  quantity: z.string().transform((val) => +val),
-  value: z.string().transform((val) => +val),
-  unit: z.nativeEnum(UnitEnum),
+  quantity: z.coerce.number(),
+  value: z.coerce.number(),
+  date: z.coerce.date().optional(),
 });
 
-export default function AddMoreForm() {
+interface AddMoreFormProps {
+  productId: string;
+}
+
+export default function AddMoreForm({ productId }: AddMoreFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
+  const {
+    AddProductMutation: { mutate: AddProducts, isPending },
+  } = useProducts();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("values", values);
+    AddProducts({
+      id: productId,
+      quantity: values.quantity,
+      price: values.value,
+      purchaseDate: values.date ?? new Date(),
+    });
   }
 
   return (
@@ -83,29 +90,27 @@ export default function AddMoreForm() {
         </div>
         <FormField
           control={form.control}
-          name="unit"
+          name="date"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Unidade</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione a unidade" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {Object.entries(UnitEnum).map(([key, value]) => (
-                    <SelectItem key={key} value={value}>
-                      {value}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <FormItem className="flex flex-col">
+              <FormLabel>Date da compra</FormLabel>
+              <Input
+                type="date"
+                value={
+                  field.value ? field.value.toISOString().split("T")[0] : ""
+                }
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                name={field.name}
+                ref={field.ref}
+              />
             </FormItem>
           )}
         />
 
-        <Button type="submit">Adicionar</Button>
+        <div className="flex flex-1 justify-end">
+          <Button type="submit">Adicionar</Button>
+        </div>
       </form>
     </Form>
   );
