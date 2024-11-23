@@ -1,9 +1,11 @@
 import { createProduct } from "@/domain/products/actions/create-products.action";
 import { deleteProduct } from "@/domain/products/actions/delete-products.action";
 import { getProducts } from "@/domain/products/actions/list-products.action";
+import { updateProduct } from "@/domain/products/actions/update-products.action";
 import { CreateProductProps } from "@/domain/products/types/create-products.type";
 import { DeleteProductProps } from "@/domain/products/types/delete-products.type";
 import { ListProductProps } from "@/domain/products/types/list-products.type";
+import { UpdateProductProps } from "@/domain/products/types/update-products.type";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
@@ -43,6 +45,35 @@ export function useProducts({ name }: ListProductProps = {}) {
     },
   });
 
+  const UpdateProductMutation = useMutation({
+    mutationFn: async ({
+      name,
+      details,
+      price,
+      purchaseDate,
+      quantity,
+      unit,
+      productId,
+    }: UpdateProductProps) =>
+      await updateProduct({
+        productId,
+        name,
+        details,
+        price,
+        purchaseDate,
+        quantity,
+        unit,
+      }),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/products"] });
+      toast.success("Produto editado com sucesso");
+    },
+    onError: () => {
+      toast.error("Erro ao editar produto");
+    },
+  });
+
   const DeleteProductMutation = useMutation({
     mutationFn: async ({ productId }: DeleteProductProps) =>
       await deleteProduct({
@@ -58,5 +89,10 @@ export function useProducts({ name }: ListProductProps = {}) {
     },
   });
 
-  return { ListProductsQuery, CreateProductMutation, DeleteProductMutation };
+  return {
+    ListProductsQuery,
+    CreateProductMutation,
+    DeleteProductMutation,
+    UpdateProductMutation,
+  };
 }

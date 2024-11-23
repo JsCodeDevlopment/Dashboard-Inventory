@@ -46,27 +46,41 @@ interface SaveProductFormProps {
   data?: Product;
 }
 
-export function SaveProductForm({ data: Products }: SaveProductFormProps) {
+export function SaveProductForm({ data: Product }: SaveProductFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: Products?.name,
-      value: Products?.price,
-      date: Products?.purchaseDate.toISOString(),
-      unit: Products?.unit,
-      quantity: Products?.quantity,
-      details: Products?.details,
+      name: Product?.name,
+      value: Product?.price,
+      date: Product?.purchaseDate
+        ? new Date(Product.purchaseDate).toISOString().split("T")[0]
+        : undefined,
+      unit: Product?.unit,
+      quantity: Product?.quantity,
+      details: Product?.details,
     },
   });
 
   const {
     CreateProductMutation: { mutate: CreateProduct, isPending: isCreating },
+    UpdateProductMutation: { mutate: UpdateProduct, isPending: isUpdating },
   } = useProducts();
 
   const { handleSubmit } = form;
 
   const onSubmit = (data: FormValues) => {
-    CreateProduct({
+    if (!Product) {
+      CreateProduct({
+        name: data.name,
+        details: data.details,
+        price: data.value,
+        purchaseDate: data.date ? new Date(data.date) : new Date(),
+        quantity: data.quantity,
+        unit: data.unit,
+      });
+    }
+    UpdateProduct({
+      productId: Product?.id ?? "",
       name: data.name,
       details: data.details,
       price: data.value,
@@ -184,8 +198,8 @@ export function SaveProductForm({ data: Products }: SaveProductFormProps) {
         />
 
         <div className="flex justify-end space-x-2">
-          <Button type="submit" disabled={isCreating}>
-            {Products ? "Atualizar produto" : "Adicionar produto"}
+          <Button type="submit" disabled={isCreating || isUpdating}>
+            {Product ? "Atualizar produto" : "Adicionar produto"}
           </Button>
         </div>
       </form>
