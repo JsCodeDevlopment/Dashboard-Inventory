@@ -1,5 +1,6 @@
 "use client";
 
+import RefetchButton from "@/components/common/RefetchButton";
 import { RegisterSaleForm } from "@/components/tables/stock-movements/form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -166,27 +167,30 @@ export function DataTableMovements() {
             />
             <Search className="absolute top-2 right-2 h-5 w-5 text-gray-400" />
           </div>
-          <Dialog
-            title="Adicionar Movimento"
-            description="Adicione um novo movimento de estoque"
-            className="w-[65rem]"
-            trigger={<Button>Registrar Venda</Button>}
-          >
-            <RegisterSaleForm
-              products={[
-                { id: "1", name: "Carregador de celular" },
-                {
-                  id: "2",
-                  name: "Fone de ouvido",
-                },
-                { id: "3", name: "Carregador de celular" },
-                {
-                  id: "4",
-                  name: "Fone de ouvido",
-                },
-              ]}
-            />
-          </Dialog>
+          <div className="flex flex-1 gap-2 justify-end">
+            <Dialog
+              title="Adicionar Movimento"
+              description="Adicione um novo movimento de estoque"
+              className="w-[65rem]"
+              trigger={<Button>Registrar Venda</Button>}
+            >
+              <RegisterSaleForm
+                products={[
+                  { id: "1", name: "Carregador de celular" },
+                  {
+                    id: "2",
+                    name: "Fone de ouvido",
+                  },
+                  { id: "3", name: "Carregador de celular" },
+                  {
+                    id: "4",
+                    name: "Fone de ouvido",
+                  },
+                ]}
+              />
+            </Dialog>
+            <RefetchButton refetch={() => {}} isPending={false} />
+          </div>
         </div>
         <DataTable columns={columns} table={table} isLoading={isLoading} />
       </div>
