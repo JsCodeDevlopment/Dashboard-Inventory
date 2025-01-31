@@ -63,7 +63,7 @@ export const FormRegisterView: React.FC<ReturnType<typeof useFormRegister>> = ({
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
               <FormField
                 control={form.control}
-                name="name"
+                name="username"
                 render={({ field }) => (
                   <FormItem className="space-y-2">
                     <div className="relative">
@@ -71,7 +71,7 @@ export const FormRegisterView: React.FC<ReturnType<typeof useFormRegister>> = ({
                         <Input
                           {...field}
                           type="text"
-                          autoComplete="name"
+                          autoComplete="username"
                           autoFocus
                           id="name"
                           tabIndex={1}

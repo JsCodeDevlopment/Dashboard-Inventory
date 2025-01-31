@@ -20,7 +20,7 @@ export const useFormRegister = () => {
   const form = useForm<z.infer<typeof userRegisterSchema>>({
     resolver: zodResolver(userRegisterSchema),
     defaultValues: {
-      name: "",
+      username: "",
       email: "",
       password: "",
     },
@@ -47,7 +47,7 @@ export const useFormRegister = () => {
 
   const onSubmit = async (values: z.infer<typeof userRegisterSchema>) => {
     mutate({
-      name: values.name,
+      username: values.username,
       email: values.email,
       password: values.password,
     });
