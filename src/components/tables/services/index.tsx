@@ -54,6 +54,7 @@ export function DataTableServices() {
               type="text"
               placeholder="Buscar serviço..."
               className="border p-2 rounded w-96"
+              value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Search className="absolute top-2 right-2 h-5 w-5 text-gray-400" />
