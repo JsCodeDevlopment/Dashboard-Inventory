@@ -78,16 +78,17 @@ export function SaveProductForm({ data: Product }: SaveProductFormProps) {
         quantity: data.quantity,
         unit: data.unit,
       });
+    } else {
+      UpdateProduct({
+        productId: Product.id,
+        name: data.name,
+        details: data.details,
+        price: data.value,
+        purchaseDate: data.date ? new Date(data.date) : new Date(),
+        quantity: data.quantity,
+        unit: data.unit,
+      });
     }
-    UpdateProduct({
-      productId: Product?.id ?? "",
-      name: data.name,
-      details: data.details,
-      price: data.value,
-      purchaseDate: data.date ? new Date(data.date) : new Date(),
-      quantity: data.quantity,
-      unit: data.unit,
-    });
   };
 
   return (
