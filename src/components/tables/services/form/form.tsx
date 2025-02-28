@@ -26,6 +26,7 @@ import { toast } from "sonner";
 import { FormValues, SaveServiceFormProps } from "./form.type";
 import { formSchema, StatusEnum } from "./form.schema";
 import { useEffect } from "react";
+import { DialogClose } from "@/components/ui/dialog-ui";
 
 export function SaveServiceForm({ data: service }: SaveServiceFormProps) {
   const form = useForm<FormValues>({
@@ -55,7 +56,6 @@ export function SaveServiceForm({ data: service }: SaveServiceFormProps) {
   });
 
   const onSubmit = async (data: FormValues) => {
-    console.log(1);
     const { data: customer } = await ListCustomerByContactQuery.refetch();
 
     if (!customer) {
@@ -268,13 +268,13 @@ export function SaveServiceForm({ data: service }: SaveServiceFormProps) {
         </div>
 
         <div className="flex justify-end space-x-2">
-          <Button
+          <DialogClose
             onClick={form.handleSubmit(onSubmit)}
             className={buttonVariants()}
             type="submit"
           >
             {service ? "Atualizar serviço" : "Adicionar serviço"}
-          </Button>
+          </DialogClose>
         </div>
       </form>
     </Form>
