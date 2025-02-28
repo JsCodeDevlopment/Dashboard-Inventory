@@ -25,12 +25,10 @@ export function DataTableServices() {
 
   const handleDeleteService = (serviceId: string) => {
     DeleteService({ serviceId });
-    refetch();
   };
 
   const handleFinishService = async (serviceId: any) => {
     FinishService({ serviceId });
-    refetch();
   };
 
   const columns = useColumns({
