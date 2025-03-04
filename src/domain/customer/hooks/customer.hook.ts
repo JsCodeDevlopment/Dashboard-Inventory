@@ -37,7 +37,7 @@ export function useCustomer({ id, name, contact }: ListCustomerProps = {}) {
 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/customer"] });
-      toast.success("Serviço criado com sucesso");
+      toast.success("Cliente criado com sucesso");
     },
     onError: ({ response }: AxiosError<CustomerMutationError>) => {
       toast.error(response?.data.message || "Erro ao criar cliente");
