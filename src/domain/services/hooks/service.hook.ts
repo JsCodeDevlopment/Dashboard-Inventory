@@ -22,7 +22,6 @@ export function useServices({ clientName }: ListServiceProps = {}) {
 
   const CreateServiceMutation = useMutation({
     mutationFn: async (addServiceProps: AddServiceProps) => {
-      console.log(addServiceProps);
       await addService(addServiceProps);
     },
 

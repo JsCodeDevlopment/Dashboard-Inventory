@@ -8,7 +8,6 @@ export const StatusEnum = {
 } as const;
 
 export const formSchema = z.object({
-  clientName: z.string().min(1, "Client name is required"),
   contact: z.string().min(1, "Contact is required"),
   device: z.string().min(1, "Device is required"),
   defect: z.string().min(1, "Defect is required"),

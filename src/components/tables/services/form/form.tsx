@@ -32,7 +32,6 @@ export function SaveServiceForm({ data: service }: SaveServiceFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      clientName: service?.clientName ?? "",
       contact: service?.contact ?? "",
       device: service?.device ?? "",
       defect: service?.defect ?? "",
@@ -51,12 +50,12 @@ export function SaveServiceForm({ data: service }: SaveServiceFormProps) {
   } = useServices();
 
   const { user } = useUser();
-  const { ListCustomerByContactQuery } = useCustomer({
+  const { FindOneCustomer } = useCustomer({
     contact: form.getValues("contact"),
   });
 
   const onSubmit = async (data: FormValues) => {
-    const { data: customer } = await ListCustomerByContactQuery.refetch();
+    const { data: customer } = await FindOneCustomer.refetch();
 
     if (!customer) {
       toast.error("Cliente não encontrado");
@@ -68,7 +67,7 @@ export function SaveServiceForm({ data: service }: SaveServiceFormProps) {
       return;
     }
 
-    const { clientName, contact, ...serviceData } = data;
+    const { contact, ...serviceData } = data;
 
     if (service) {
       updateService({ serviceId: service.id, ...serviceData });
@@ -97,22 +96,6 @@ export function SaveServiceForm({ data: service }: SaveServiceFormProps) {
           <div className="flex flex-col md:flex-row gap-5 justify-between">
             <FormField
               control={form.control}
-              name="clientName"
-              render={({ field }) => (
-                <FormItem className="w-full md:w-1/2">
-                  <FormLabel>Nome do cliente</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Adicione o nome do cliente"
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
               name="contact"
               render={({ field }) => (
                 <FormItem className="w-full md:w-1/2">
@@ -123,22 +106,21 @@ export function SaveServiceForm({ data: service }: SaveServiceFormProps) {
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="device"
+              render={({ field }) => (
+                <FormItem className="w-full md:w-1/2">
+                  <FormLabel>Dispositivo</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Adicione o dispositivo" />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </div>
         ) : null}
-
-        <FormField
-          control={form.control}
-          name="device"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Dispositivo</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Adicione o dispositivo" />
-              </FormControl>
-            </FormItem>
-          )}
-        />
-
         <FormField
           control={form.control}
           name="defect"
