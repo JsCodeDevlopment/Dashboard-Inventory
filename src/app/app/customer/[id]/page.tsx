@@ -1,4 +1,4 @@
-import { DataTableCustomer } from "@/components/tables/customer";
+import { DataTableCustomers } from "@/components/tables/customers";
 
 interface CustomerPageProps {
   params: {
@@ -9,7 +9,7 @@ interface CustomerPageProps {
 const CustomerPage = async ({ params: { id } }: CustomerPageProps) => {
   return (
     <div>
-      <DataTableCustomer customerId={id} />
+      <DataTableCustomers />
     </div>
   );
 };
