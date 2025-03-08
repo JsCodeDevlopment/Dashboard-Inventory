@@ -6,10 +6,10 @@ export interface StockMovement {
   productName: String;
   quantity: number;
   movementType: StockMovementType;
-  date: Date;
+  date: string;
   product: Product;
   serviceId?: string;
-  negotiatedValue: string;
+  negotiatedValue: number;
 }
 
 export type StockMovementType = keyof typeof StockMovementType;
@@ -19,5 +19,6 @@ export const StockMovementType = {
 } as const;
 
 export interface ListStockMovementProps {
-  name?: string;
+  productName?: string;
+  movementType?: string;
 }
