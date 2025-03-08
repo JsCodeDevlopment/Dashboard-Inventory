@@ -92,35 +92,35 @@ export function SaveServiceForm({ data: service }: SaveServiceFormProps) {
         className="space-y-4 overflow-y-auto max-h-screen"
         autoComplete="off"
       >
-        {!service ? (
-          <div className="flex flex-col md:flex-row gap-5 justify-between">
-            <FormField
-              control={form.control}
-              name="contact"
-              render={({ field }) => (
-                <FormItem className="w-full md:w-1/2">
-                  <FormLabel>Contato</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Adicione o contato" />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+        <div className="flex flex-col md:flex-row gap-5 justify-between">
+          <FormField
+            disabled={!!service}
+            control={form.control}
+            name="contact"
+            render={({ field }) => (
+              <FormItem className="w-full md:w-1/2">
+                <FormLabel>Contato</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Adicione o contato" />
+                </FormControl>
+              </FormItem>
+            )}
+          />
 
-            <FormField
-              control={form.control}
-              name="device"
-              render={({ field }) => (
-                <FormItem className="w-full md:w-1/2">
-                  <FormLabel>Dispositivo</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Adicione o dispositivo" />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-          </div>
-        ) : null}
+          <FormField
+            control={form.control}
+            name="device"
+            render={({ field }) => (
+              <FormItem className="w-full md:w-1/2">
+                <FormLabel>Dispositivo</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="Adicione o dispositivo" />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
+
         <FormField
           control={form.control}
           name="defect"
