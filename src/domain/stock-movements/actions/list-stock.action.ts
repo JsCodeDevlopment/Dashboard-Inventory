@@ -1,8 +1,6 @@
 import { api } from "@/lib/axios/api";
-import {
-  ListStockMovementProps,
-  StockMovement,
-} from "../types/list-stock.type";
+import { ListStockMovementProps } from "../types/list-stock.type";
+import { StockMovement } from "../types/stock.type";
 
 export async function getStockMovements({
   productName,

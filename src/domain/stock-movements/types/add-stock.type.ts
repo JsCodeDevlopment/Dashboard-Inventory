@@ -1,4 +1,4 @@
-import { StockMovementType } from "./list-stock.type";
+import { StockMovementType } from "./stock.type";
 
 export interface AddStockProps {
   productId: string;
