@@ -50,14 +50,12 @@ export function SaveProductForm({ data: Product }: SaveProductFormProps) {
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: Product?.name,
-      value: Product?.price,
-      date: Product?.purchaseDate
-        ? new Date(Product.purchaseDate).toISOString().split("T")[0]
-        : undefined,
-      unit: Product?.unit,
-      quantity: Product?.quantity,
-      details: Product?.details,
+      name: Product?.name ?? "",
+      value: Product?.price ?? undefined,
+      date: Product?.purchaseDate ?? undefined,
+      unit: Product?.unit ?? "UN",
+      quantity: Product?.quantity ?? 1,
+      details: Product?.details ?? "",
     },
   });
 
@@ -78,16 +76,17 @@ export function SaveProductForm({ data: Product }: SaveProductFormProps) {
         quantity: data.quantity,
         unit: data.unit,
       });
+    } else {
+      UpdateProduct({
+        productId: Product.id,
+        name: data.name,
+        details: data.details,
+        price: data.value,
+        purchaseDate: data.date ? new Date(data.date) : new Date(),
+        quantity: data.quantity,
+        unit: data.unit,
+      });
     }
-    UpdateProduct({
-      productId: Product?.id ?? "",
-      name: data.name,
-      details: data.details,
-      price: data.value,
-      purchaseDate: data.date ? new Date(data.date) : new Date(),
-      quantity: data.quantity,
-      unit: data.unit,
-    });
   };
 
   return (

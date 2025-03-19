@@ -1,6 +1,6 @@
-import { format, isDate, isValid } from 'date-fns';
-import { fromZonedTime } from 'date-fns-tz';
-import { ptBR } from 'date-fns/locale';
+import { format, isDate, isValid } from "date-fns";
+import { fromZonedTime } from "date-fns-tz";
+import { ptBR } from "date-fns/locale";
 
 /**
  * A utility class for formatting dates and times, specifically for the 'America/Sao_Paulo' timezone.
@@ -23,14 +23,14 @@ import { ptBR } from 'date-fns/locale';
 export class DateFormatter {
   private static toZonedTime(v: unknown): Date | null {
     if (
-      typeof v !== 'string' &&
-      typeof v !== 'number' &&
+      typeof v !== "string" &&
+      typeof v !== "number" &&
       !(v instanceof Date)
     ) {
       return null;
     }
 
-    const zonedDate = fromZonedTime(v, 'America/Sao_Paulo');
+    const zonedDate = fromZonedTime(v, "America/Sao_Paulo");
 
     if (!isValid(zonedDate) || !isDate(zonedDate)) {
       return null;
@@ -42,10 +42,10 @@ export class DateFormatter {
   public static formatDateTime(v: unknown): string {
     const zonedDate = this.toZonedTime(v);
     if (!zonedDate) {
-      return '';
+      return "";
     }
 
-    return format(zonedDate, 'Pp', {
+    return format(zonedDate, "Pp", {
       locale: ptBR,
     });
   }
@@ -53,11 +53,18 @@ export class DateFormatter {
   public static formatDate(v: unknown): string {
     const zonedDate = this.toZonedTime(v);
     if (!zonedDate) {
-      return '';
+      return "";
     }
 
-    return format(zonedDate, 'P', {
+    return format(zonedDate, "P", {
       locale: ptBR,
     });
+  }
+
+  public static formatUsDate(v: unknown): string {
+    const date = this.toZonedTime(v);
+    if (!date) return "";
+
+    return format(date, "yyyy-MM-dd");
   }
 }

@@ -5,7 +5,7 @@ export interface Product {
   quantity: number;
   details?: string;
   unit: ProductUnit;
-  purchaseDate: Date;
+  purchaseDate: string;
   createdAt: Date;
   updatedAt: Date;
 }

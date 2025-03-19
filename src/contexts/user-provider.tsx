@@ -19,7 +19,7 @@ export const UserContext = createContext<UserContextData>(
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const {
     isLoading,
-    data: user,
+    data: userResponse,
     error,
   } = useSuspenseQuery({
     queryKey: userKeys.me,
@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <UserContext.Provider
       value={{
-        user,
+        user: userResponse?.data || null,
         isLoading,
       }}
     >

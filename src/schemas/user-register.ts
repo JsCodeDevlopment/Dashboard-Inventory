@@ -2,7 +2,7 @@ import { z } from "zod";
 import { passwordBaseRegexSchema } from "@/schemas/password-form";
 
 export const userRegisterSchema = z.object({
-  name: z
+  username: z
     .string()
     .min(3, {
       message: "Preencha com seu nome completo",

@@ -16,13 +16,24 @@ export const user = {
       return null;
     }
   },
-  register: async ({ email, name, password }: RegisterInput) => {
-    const response = await api.post<RegisterOutput>("/auth/user", {
+  register: async ({ email, username, password }: RegisterInput) => {
+    const response = await api.post<RegisterOutput>("/auth/register", {
+      username,
       email,
-      name,
       password,
     });
     return response.data;
+  },
+  delete: async () => {
+    await api.delete("/user");
+  },
+  updateUser: async ({ name, email, phone }: UpdateUserInput) => {
+    const updatedUser = await api.patch<UpdateUserOutput>("/user", {
+      name,
+      email,
+      phone,
+    });
+    return updatedUser.data;
   },
   updatePassword: async ({
     password,
@@ -35,16 +46,5 @@ export const user = {
       password: password,
       newPassword: newPassword,
     });
-  },
-  delete: async () => {
-    await api.delete("/user");
-  },
-  updateUser: async ({ name, email, phone }: UpdateUserInput) => {
-    const updatedUser = await api.patch<UpdateUserOutput>("/user", {
-      name,
-      email,
-      phone,
-    });
-    return updatedUser.data;
   },
 };

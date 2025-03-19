@@ -22,9 +22,8 @@ export const useAccountForm = () => {
   const form = useForm<AccountFormSchema>({
     resolver: zodResolver(accountFormSchema),
     defaultValues: {
-      name: user?.name || "",
+      name: user?.username || "",
       email: user?.email || "",
-      phone: user?.phone || "",
     },
     disabled: isDisabledForm,
   });
