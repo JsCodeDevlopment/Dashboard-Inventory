@@ -1,4 +1,3 @@
-import * as React from "react";
 import { cn } from "@/lib/tw-merge";
 import { Rocket } from "lucide-react";
 
@@ -9,7 +8,10 @@ export const FullLogo = () => {
         <Rocket className="size-7 text-primary-foreground" />
       </div>
       <span className="text-xl font-bold">
-        DEV<span className="text-primary">LEARNING</span>
+        J
+        <span className="text-primary">
+          Systems <span className="text-white">- Gestor de Estoques</span>
+        </span>
       </span>
     </div>
   );

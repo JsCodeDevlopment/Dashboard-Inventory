@@ -8,7 +8,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "JSystems - Gestor de estoques",
+  title: "JSystems - Gestor de Estoques",
   description: "Gestor de estoques",
 };
 export default function RootLayout({
